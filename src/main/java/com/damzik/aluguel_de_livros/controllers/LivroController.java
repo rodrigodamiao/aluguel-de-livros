@@ -6,6 +6,7 @@ import com.damzik.aluguel_de_livros.services.LivroService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class LivroController {
 
     // Cadastrar Livro
     @PostMapping
-    public ResponseEntity<Livro> cadastrarLivro(@RequestBody LivroRequestDTO livroRequestDTO){
+    public ResponseEntity<Livro> cadastrarLivro(@RequestBody @Validated LivroRequestDTO livroRequestDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(livroService.cadastrarLivro(livroRequestDTO));
     }
 

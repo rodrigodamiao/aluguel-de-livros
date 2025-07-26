@@ -24,6 +24,5 @@ public class Autor {
     private String nome;
 
     @OneToMany(mappedBy = "autor", cascade = CascadeType.REMOVE)
-    @JsonIgnore
     private List<Livro> livros = new ArrayList<>();
 }

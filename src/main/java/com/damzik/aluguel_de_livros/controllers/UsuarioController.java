@@ -1,6 +1,6 @@
 package com.damzik.aluguel_de_livros.controllers;
 
-import com.damzik.aluguel_de_livros.entities.Livro;
+import com.damzik.aluguel_de_livros.DTOs.response.UsuarioResponseDTO;
 import com.damzik.aluguel_de_livros.entities.Usuario;
 import com.damzik.aluguel_de_livros.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -19,31 +19,31 @@ public class UsuarioController {
 
     // Listar Livros
     @GetMapping
-    public ResponseEntity<List<Usuario>> getUsuarios(){
+    public ResponseEntity<List<UsuarioResponseDTO>> getUsuarios(){
         return ResponseEntity.ok().body(usuarioService.listarUsuarios());
     }
 
     // Find user by id
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> getUserById(@PathVariable Long id){
+    public ResponseEntity<UsuarioResponseDTO> getUserById(@PathVariable Long id){
         return ResponseEntity.ok().body(usuarioService.findUserById(id));
     }
 
     // Cadastrar Usuário
     @PostMapping()
-    public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody Usuario usuario){
+    public ResponseEntity<UsuarioResponseDTO> cadastrarUsuario(@RequestBody Usuario usuario){
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.cadastrarUsuario(usuario));
     }
 
     // Alugar Livro para o usuario
     @PostMapping("/alugar/{usuarioId}/{livroId}")
-    public ResponseEntity<Usuario> alugarLivro(@PathVariable Long usuarioId, @PathVariable Long livroId){
+    public ResponseEntity<UsuarioResponseDTO> alugarLivro(@PathVariable Long usuarioId, @PathVariable Long livroId){
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.alugarLivro(usuarioId,livroId));
     }
 
     // Devolver Livro do usuario
     @PutMapping("/devolver/{usuarioId}")
-    public ResponseEntity<Usuario> devolverLivro(@PathVariable Long usuarioId){
+    public ResponseEntity<UsuarioResponseDTO> devolverLivro(@PathVariable Long usuarioId){
         return ResponseEntity.ok().body(usuarioService.devolverLivro(usuarioId));
     }
 

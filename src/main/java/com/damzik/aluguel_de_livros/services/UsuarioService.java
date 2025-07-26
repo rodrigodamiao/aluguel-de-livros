@@ -1,5 +1,6 @@
 package com.damzik.aluguel_de_livros.services;
 
+import com.damzik.aluguel_de_livros.DTOs.response.UsuarioResponseDTO;
 import com.damzik.aluguel_de_livros.entities.Livro;
 import com.damzik.aluguel_de_livros.entities.LivroAlugado;
 import com.damzik.aluguel_de_livros.entities.Usuario;
@@ -22,27 +23,31 @@ public class UsuarioService {
     private final LivroAlugadoRepository livroAlugadoRepository;
 
     // Listar Usuários
-    public List<Usuario> listarUsuarios(){
-        return usuarioRepository.findAll();
+    public List<UsuarioResponseDTO> listarUsuarios(){
+        List<Usuario> usuarios = usuarioRepository.findAll();
+
+        return usuarios.stream().map(UsuarioResponseDTO::new).toList();
     }
 
     // Find user by id
-    public Usuario findUserById(Long id){
-        return usuarioRepository.findById(id)
+    public UsuarioResponseDTO findUserById(Long id){
+        Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
+
+        return new UsuarioResponseDTO(usuario);
     }
 
     // Cadastrar Usuário
-    public Usuario cadastrarUsuario(Usuario usuario){
+    public UsuarioResponseDTO cadastrarUsuario(Usuario usuario){
         Usuario novoUsuario = new Usuario();
         novoUsuario.setNome(usuario.getNome());
         novoUsuario.setEmail(usuario.getEmail());
 
-        return usuarioRepository.save(novoUsuario);
+        return new UsuarioResponseDTO(usuarioRepository.save(novoUsuario));
     }
 
     // Alugar Livro
-    public Usuario alugarLivro(Long usuarioId, Long livroId){
+    public UsuarioResponseDTO alugarLivro(Long usuarioId, Long livroId){
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow((EntityNotFoundException::new));
         Livro livro = livroRepository.findById(livroId)
@@ -69,13 +74,11 @@ public class UsuarioService {
 
         usuario.setLivroAlugado(livroAlugado);
 
-        usuarioRepository.save(usuario);
-
-        return usuario;
+        return new UsuarioResponseDTO(usuarioRepository.save(usuario));
     }
 
     // Devolver Livro
-    public Usuario devolverLivro(Long usuarioId) {
+    public UsuarioResponseDTO devolverLivro(Long usuarioId) {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
 
@@ -89,11 +92,10 @@ public class UsuarioService {
         livro.setLivroStatus(LivroStatus.DISPONIVEL);
 
         usuario.setLivroAlugado(null);
-        usuarioRepository.save(usuario);
 
         livroAlugadoRepository.delete(livroAlugado);
 
-        return usuario;
+        return new UsuarioResponseDTO(usuarioRepository.save(usuario));
     }
 
     // Deletar Usuário
