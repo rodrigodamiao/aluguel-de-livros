@@ -1,5 +1,6 @@
 package com.damzik.aluguel_de_livros.controllers;
 
+import com.damzik.aluguel_de_livros.DTOs.response.AutorResponseDTO;
 import com.damzik.aluguel_de_livros.entities.Autor;
 import com.damzik.aluguel_de_livros.entities.Usuario;
 import com.damzik.aluguel_de_livros.services.AutorService;
@@ -20,19 +21,19 @@ public class AutorController {
 
     // Listar Autores
     @GetMapping
-    public ResponseEntity<List<Autor>> listarAutores(){
+    public ResponseEntity<List<AutorResponseDTO>> listarAutores(){
         return ResponseEntity.ok().body(autorService.listarAutores());
     }
 
     // Find autor by id
     @GetMapping("/{id}")
-    public ResponseEntity<Autor> getAutorById(@PathVariable Long id){
+    public ResponseEntity<AutorResponseDTO> getAutorById(@PathVariable Long id){
         return ResponseEntity.ok().body(autorService.findAutorById(id));
     }
 
     // Cadastrar Autor
     @PostMapping()
-    public ResponseEntity<Autor> cadastrarAutor(@RequestBody Autor autor){
+    public ResponseEntity<AutorResponseDTO> cadastrarAutor(@RequestBody Autor autor){
         return ResponseEntity.status(HttpStatus.CREATED).body(autorService.cadastrarAutor(autor));
     }
 

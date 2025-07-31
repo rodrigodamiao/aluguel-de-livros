@@ -16,7 +16,7 @@ public class LivroResponseDTO {
     private String nome;
     private LocalDateTime dataPublicacao;
 
-    private AutorResponseDTO autorResponseDTO;
+    private String nomeAutor;
 
     private LivroStatus livroStatus;
 
@@ -24,7 +24,7 @@ public class LivroResponseDTO {
         this.id = livro.getId();
         this.nome = livro.getNome();
         this.dataPublicacao = livro.getDataPublicacao();
-        this.autorResponseDTO = new AutorResponseDTO(livro.getAutor());
+        this.nomeAutor = livro.getAutor().getNome();
         this.livroStatus = livro.getLivroStatus();
     }
 }

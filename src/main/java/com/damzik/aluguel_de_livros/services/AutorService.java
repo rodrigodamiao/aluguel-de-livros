@@ -1,5 +1,6 @@
 package com.damzik.aluguel_de_livros.services;
 
+import com.damzik.aluguel_de_livros.DTOs.response.AutorResponseDTO;
 import com.damzik.aluguel_de_livros.entities.Autor;
 import com.damzik.aluguel_de_livros.entities.Livro;
 import com.damzik.aluguel_de_livros.entities.Usuario;
@@ -17,22 +18,22 @@ public class AutorService {
     private final AutorRepository autorRepository;
 
     // Listar autores
-    public List<Autor> listarAutores(){
-        return autorRepository.findAll();
+    public List<AutorResponseDTO> listarAutores(){
+        return autorRepository.findAll().stream().map(AutorResponseDTO::new).toList();
     }
 
     // Find autor by id
-    public Autor findAutorById(Long id){
-        return autorRepository.findById(id)
-                .orElseThrow(EntityNotFoundException::new);
+    public AutorResponseDTO findAutorById(Long id){
+        return new AutorResponseDTO(autorRepository.findById(id)
+                .orElseThrow(EntityNotFoundException::new));
     }
 
     // Cadastrar Autor
-    public Autor cadastrarAutor(Autor autor){
+    public AutorResponseDTO cadastrarAutor(Autor autor){
         Autor novoAutor = new Autor();
         novoAutor.setNome(autor.getNome());
 
-        return autorRepository.save(novoAutor);
+        return new AutorResponseDTO(autorRepository.save(novoAutor));
     }
 
     // Deletar Autor

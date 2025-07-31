@@ -1,6 +1,7 @@
 package com.damzik.aluguel_de_livros.services;
 
 import com.damzik.aluguel_de_livros.DTOs.request.LivroRequestDTO;
+import com.damzik.aluguel_de_livros.DTOs.response.LivroResponseDTO;
 import com.damzik.aluguel_de_livros.entities.Autor;
 import com.damzik.aluguel_de_livros.entities.Livro;
 import com.damzik.aluguel_de_livros.enums.LivroStatus;
@@ -19,18 +20,18 @@ public class LivroService {
     private final AutorRepository autorRepository;
 
     // Listas Livros
-    public List<Livro> listarLivros(){
-        return livroRepository.findAll();
+    public List<LivroResponseDTO> listarLivros(){
+        return livroRepository.findAll().stream().map(LivroResponseDTO::new).toList();
     }
 
     // Find livro by id
-    public Livro findLivroById(Long id){
-        return livroRepository.findById(id)
-                .orElseThrow(EntityNotFoundException::new);
+    public LivroResponseDTO findLivroById(Long id){
+        return new LivroResponseDTO(livroRepository.findById(id)
+                .orElseThrow(EntityNotFoundException::new));
     }
 
     // Cadastrar Livro
-    public Livro cadastrarLivro(LivroRequestDTO livroRequestDTO){
+    public LivroResponseDTO cadastrarLivro(LivroRequestDTO livroRequestDTO){
         Livro novoLivro = new Livro();
         Autor autor = autorRepository.findById(livroRequestDTO.getAutorId())
                         .orElseThrow(EntityNotFoundException::new);
@@ -40,7 +41,7 @@ public class LivroService {
         novoLivro.setAutor(autor);
         novoLivro.setLivroStatus(LivroStatus.DISPONIVEL);
 
-        return livroRepository.save(novoLivro);
+        return new LivroResponseDTO(livroRepository.save(novoLivro));
     }
 
     // Deletar Livro

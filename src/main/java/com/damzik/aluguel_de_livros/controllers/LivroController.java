@@ -1,8 +1,10 @@
 package com.damzik.aluguel_de_livros.controllers;
 
 import com.damzik.aluguel_de_livros.DTOs.request.LivroRequestDTO;
+import com.damzik.aluguel_de_livros.DTOs.response.LivroResponseDTO;
 import com.damzik.aluguel_de_livros.entities.Livro;
 import com.damzik.aluguel_de_livros.services.LivroService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,19 +22,19 @@ public class LivroController {
 
     // Listar Livros
     @GetMapping
-    public ResponseEntity<List<Livro>> listarLivros(){
+    public ResponseEntity<List<LivroResponseDTO>> listarLivros(){
         return ResponseEntity.ok().body(livroService.listarLivros());
     }
 
     // Find Livro by id
     @GetMapping("/{id}")
-    public ResponseEntity<Livro> getLivroById(@PathVariable Long id){
+    public ResponseEntity<LivroResponseDTO> getLivroById(@PathVariable Long id){
         return ResponseEntity.ok().body(livroService.findLivroById(id));
     }
 
     // Cadastrar Livro
     @PostMapping
-    public ResponseEntity<Livro> cadastrarLivro(@RequestBody @Validated LivroRequestDTO livroRequestDTO){
+    public ResponseEntity<LivroResponseDTO> cadastrarLivro(@RequestBody @Valid LivroRequestDTO livroRequestDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(livroService.cadastrarLivro(livroRequestDTO));
     }
 

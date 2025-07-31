@@ -23,6 +23,4 @@ public class LivroRequestDTO {
 
     @NotNull(message = "O id do autor não pode ser nulo")
     private Long autorId;
-
-    private LivroStatus livroStatus;
 }

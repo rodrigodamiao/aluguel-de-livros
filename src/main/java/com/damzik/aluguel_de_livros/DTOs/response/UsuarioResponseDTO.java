@@ -18,5 +18,6 @@ public class UsuarioResponseDTO {
         this.id = usuario.getId();
         this.nome = usuario.getNome();
         this.email = usuario.getEmail();
+        if(usuario.getLivroAlugado() != null) this.livroAlugadoResponseDTO = new LivroAlugadoResponseDTO(usuario.getLivroAlugado());
     }
 }
