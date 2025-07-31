@@ -1,5 +1,6 @@
 package com.damzik.aluguel_de_livros.services;
 
+import com.damzik.aluguel_de_livros.DTOs.request.AutorRequestDTO;
 import com.damzik.aluguel_de_livros.DTOs.response.AutorResponseDTO;
 import com.damzik.aluguel_de_livros.entities.Autor;
 import com.damzik.aluguel_de_livros.entities.Livro;
@@ -29,7 +30,7 @@ public class AutorService {
     }
 
     // Cadastrar Autor
-    public AutorResponseDTO cadastrarAutor(Autor autor){
+    public AutorResponseDTO cadastrarAutor(AutorRequestDTO autor){
         Autor novoAutor = new Autor();
         novoAutor.setNome(autor.getNome());
 

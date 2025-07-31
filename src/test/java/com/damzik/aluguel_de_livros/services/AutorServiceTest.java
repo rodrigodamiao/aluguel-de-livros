@@ -1,5 +1,6 @@
 package com.damzik.aluguel_de_livros.services;
 
+import com.damzik.aluguel_de_livros.DTOs.request.AutorRequestDTO;
 import com.damzik.aluguel_de_livros.DTOs.response.AutorResponseDTO;
 import com.damzik.aluguel_de_livros.entities.Autor;
 import com.damzik.aluguel_de_livros.entities.Livro;
@@ -56,11 +57,14 @@ class AutorServiceTest {
 
     @Test
     void deveCadastrarAutor() {
+        AutorRequestDTO autorRequestDTO = new AutorRequestDTO();
+        autorRequestDTO.setNome("Novo Autor");
+
         Autor autor = new Autor(1L, "Novo Autor", new ArrayList<>());
 
         Mockito.when(autorRepository.save(Mockito.any(Autor.class))).thenReturn(autor);
 
-        AutorResponseDTO autorResponseDTO = autorService.cadastrarAutor(autor);
+        AutorResponseDTO autorResponseDTO = autorService.cadastrarAutor(autorRequestDTO);
 
         assertEquals("Novo Autor", autorResponseDTO.getNome());
         assertEquals(1L, autorResponseDTO.getId());

@@ -1,5 +1,6 @@
 package com.damzik.aluguel_de_livros.controllers;
 
+import com.damzik.aluguel_de_livros.DTOs.request.AutorRequestDTO;
 import com.damzik.aluguel_de_livros.DTOs.response.AutorResponseDTO;
 import com.damzik.aluguel_de_livros.entities.Autor;
 import com.damzik.aluguel_de_livros.entities.Usuario;
@@ -33,7 +34,7 @@ public class AutorController {
 
     // Cadastrar Autor
     @PostMapping()
-    public ResponseEntity<AutorResponseDTO> cadastrarAutor(@RequestBody Autor autor){
+    public ResponseEntity<AutorResponseDTO> cadastrarAutor(@RequestBody AutorRequestDTO autor){
         return ResponseEntity.status(HttpStatus.CREATED).body(autorService.cadastrarAutor(autor));
     }
 
