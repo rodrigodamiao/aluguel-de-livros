@@ -1,5 +1,6 @@
 package com.damzik.aluguel_de_livros.services;
 
+import com.damzik.aluguel_de_livros.DTOs.request.UsuarioRequestDTO;
 import com.damzik.aluguel_de_livros.DTOs.response.UsuarioResponseDTO;
 import com.damzik.aluguel_de_livros.entities.Livro;
 import com.damzik.aluguel_de_livros.entities.LivroAlugado;
@@ -38,10 +39,10 @@ public class UsuarioService {
     }
 
     // Cadastrar Usuário
-    public UsuarioResponseDTO cadastrarUsuario(Usuario usuario){
+    public UsuarioResponseDTO cadastrarUsuario(UsuarioRequestDTO usuarioRequestDTO){
         Usuario novoUsuario = new Usuario();
-        novoUsuario.setNome(usuario.getNome());
-        novoUsuario.setEmail(usuario.getEmail());
+        novoUsuario.setNome(usuarioRequestDTO.getNome());
+        novoUsuario.setEmail(usuarioRequestDTO.getEmail());
 
         return new UsuarioResponseDTO(usuarioRepository.save(novoUsuario));
     }

@@ -1,5 +1,6 @@
 package com.damzik.aluguel_de_livros.controllers;
 
+import com.damzik.aluguel_de_livros.DTOs.request.UsuarioRequestDTO;
 import com.damzik.aluguel_de_livros.DTOs.response.UsuarioResponseDTO;
 import com.damzik.aluguel_de_livros.entities.Usuario;
 import com.damzik.aluguel_de_livros.services.UsuarioService;
@@ -31,8 +32,8 @@ public class UsuarioController {
 
     // Cadastrar Usuário
     @PostMapping()
-    public ResponseEntity<UsuarioResponseDTO> cadastrarUsuario(@RequestBody Usuario usuario){
-        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.cadastrarUsuario(usuario));
+    public ResponseEntity<UsuarioResponseDTO> cadastrarUsuario(@RequestBody UsuarioRequestDTO usuarioRequestDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.cadastrarUsuario(usuarioRequestDTO));
     }
 
     // Alugar Livro para o usuario
